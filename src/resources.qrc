@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/qgislocator" >
+        <file>icons/icon_solrsearch.png</file>
+    </qresource>
+</RCC>

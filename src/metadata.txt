@@ -1,0 +1,27 @@
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=SolrSeach
+description=Test
+version=1.0.0
+qgisMinimumVersion=3.0
+author=Christoph Jung
+email=jagodki.cj@gmail.com
+
+# Tags are comma separated with spaces allowed
+tags=geocoder, locator, filter, solr, search
+
+tracker=https://github.com/jagodki/SolrSearch/issues
+homepage=https://github.com/jagodki/SolrSearch
+repository=https://github.com/jagodki/SolrSearch
+
+changelog=
+    1.0.0	initial release
+
+category=Filter
+
+# experimental flag
+experimental=False
+
+# change icon
+icon=icons/icon_solrsearch.png

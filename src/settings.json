@@ -1,0 +1,21 @@
+{
+	"prefix": "solr",
+	"max_results": 10,
+	"point_scale": 2500,
+	"solr_cores": [
+		{
+			"internal_name": "core",
+			"external_name": "Solr Core",
+			"url": "http://localhost:8080/solr/core/select?",
+			"query": {
+				"query_field": "text",
+				"query_prefix": "(",
+				"query_suffix": ")",
+				"connection": "+"
+			},
+			"icon_path": "",
+			"result_field": "content",
+			"geom_field": "geo"
+		}
+	]
+}
