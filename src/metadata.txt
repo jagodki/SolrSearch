@@ -2,11 +2,13 @@
 
 [general]
 name=SolrSeach
-description=Test
+description=a plugin to integrate an Apache Solr search engine into the locator filter
 version=1.0.0
 qgisMinimumVersion=3.0
 author=Christoph Jung
 email=jagodki.cj@gmail.com
+
+about=This plugin allows QGIS to connect to a search platform realised by Apache Solr. Depending on the data in the search platform, the user has the option of a full text search with a spatial component to change the map position according to the selected search result.
 
 # Tags are comma separated with spaces allowed
 tags=geocoder, locator, filter, solr, search
