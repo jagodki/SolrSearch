@@ -146,5 +146,22 @@ The current version of the plugin has the following limitations:
 - only the logical operator AND is supported to connect search strings
 - the HTTP-Get-parameters q and fq will be used for the query in one request
 
-Following the structure of an example request:
-http://localhost:8080/solr/core_name/select?q=field:*&fq=field:$prefix$*search_string*$suffix$&q.op=AND&wt=json&rows=max_results
+Following the creation of the request with core as a json object from the configuration file:
+```python
+#create the request url
+url = (core.get("url")
+    + "q="
+    + core.get("query").get("query_field")
+    + ":*"
+    + "&fq="
+    + core.get("query").get("query_field")
+    + ":"
+    + core.get("query").get("query_prefix")
+    + "*"
+    + search_string
+    + "*"
+    + core.get("query").get("query_suffix")
+    + "&q.op=AND"
+    + "&wt=json&rows="
+    + str(self.settings.getMaxRows()))
+```
