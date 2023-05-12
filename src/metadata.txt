@@ -3,7 +3,7 @@
 [general]
 name=SolrSeach
 description=a plugin to integrate an Apache Solr search engine into the locator filter
-version=1.0.0
+version=1.0.1
 qgisMinimumVersion=3.0
 author=Christoph Jung
 email=jagodki.cj@gmail.com
@@ -18,6 +18,7 @@ homepage=https://github.com/jagodki/SolrSearch
 repository=https://github.com/jagodki/SolrSearch
 
 changelog=
+    1.0.1	same behaviour like nominatim plugin
     1.0.0	initial release
 
 category=Filter

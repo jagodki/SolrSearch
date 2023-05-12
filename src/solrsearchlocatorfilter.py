@@ -7,14 +7,16 @@ from qgis.core import (Qgis,
                        QgsCoordinateTransform,
                        QgsProject,
                        QgsSettings,
-                       QgsGeometry
+                       QgsGeometry,
+                       QgsBlockingNetworkRequest
 )
 from .networkaccessmanager import NetworkAccessManager, RequestsException
-from qgis.PyQt.QtCore import pyqtSignal
+from qgis.PyQt.QtCore import pyqtSignal, QUrl
 from qgis.gui import QgsRubberBand
 from qgis.PyQt.QtGui import (QColor,
                              QIcon
 )
+from qgis.PyQt.QtNetwork import QNetworkRequest
 import json, pathlib
 from .solrsearchsettings import SolrSearchSettings
 
@@ -58,6 +60,9 @@ class SolrSearchLocatorFilter(QgsLocatorFilter):
         if len(search) < 2:
             return
         
+        # if search[-1] != ' ':
+            # return
+        
         result = QgsLocatorResult()
         for core in self.settings.getCores():
         
@@ -86,16 +91,14 @@ class SolrSearchLocatorFilter(QgsLocatorFilter):
             self.info('Search url {}'.format(url))
             nam = NetworkAccessManager()
             try:
-                # "Provide a valid HTTP Referer or User-Agent identifying the application (QGIS geocoder)"
-                headers = {b'User-Agent': self.USER_AGENT}
+                nam = QgsBlockingNetworkRequest()
+                request = QNetworkRequest(QUrl(url))
+                request.setHeader(QNetworkRequest.UserAgentHeader, self.USER_AGENT)
+                nam.get(request, forceRefresh=True)
+                reply = nam.reply()
                 
-                # use BLOCKING request, as fetchResults already has it's own thread!
-                (response, content) = nam.request(url, headers=headers, blocking=True)
-                
-                #self.info(response)
-                #self.info(response.status_code)
-                if response.status_code == 200:  # other codes are handled by NetworkAccessManager
-                    content_string = content.decode('utf-8')
+                if reply.attribute(QNetworkRequest.HttpStatusCodeAttribute) == 200: 
+                    content_string = reply.content().data().decode('utf8')
                     locations = json.loads(content_string).get("response").get("docs")
                     for loc in locations:
                         #get the icon
@@ -116,7 +119,10 @@ class SolrSearchLocatorFilter(QgsLocatorFilter):
                 self.resultProblem.emit('{}'.format(err))
 
     def triggerResult(self, result):
-        doc = result.userData
+        try:
+            doc = result.getUserData()
+        except:
+            doc = result.userData
         extent = self.geometryExtent(doc.get(self.settings.getCore(1).get("geom_field")))
         self.iface.mapCanvas().setExtent(extent)
         self.iface.mapCanvas().zoomScale(self.settings.getScale())
