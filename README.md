@@ -121,7 +121,7 @@ The shipped settings file is just an example and has to be edited before using i
   <tr>
     <td>icon_path</td>
     <td>String</td>
-    <td>The path to a icon (png, jpg, gif, etc.) that will be displayed on front of the search results of this core. The icon has to be be located on a filesystem.</td>
+    <td>The relative path to a icon (png, jpg, gif, etc.) that will be displayed on front of the search results of this core. The icon has to be be located inside the plugin folder.</td>
   </tr>
   <tr>
     <td>result_field</td>

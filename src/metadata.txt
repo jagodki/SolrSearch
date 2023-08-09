@@ -18,6 +18,7 @@ homepage=https://github.com/jagodki/SolrSearch
 repository=https://github.com/jagodki/SolrSearch
 
 changelog=
+    1.1.0	read icons from inside of the plugin
     1.0.1	same behaviour like nominatim plugin
     1.0.0	initial release
 
